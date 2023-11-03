@@ -33,7 +33,7 @@ class ReceiptProcessView(APIView):
 
 class ReceiptPointsView(APIView):
     @swagger_auto_schema(
-        manual_parameters=[openapi.Parameter('id', openapi.IN_QUERY, description="Receipt ID", type=openapi.TYPE_INTEGER)],
+        manual_parameters=[openapi.Parameter('id', openapi.IN_PATH, description="Receipt ID", type=openapi.TYPE_INTEGER)],
         responses={200: openapi.Response("Success", openapi.Schema(type=openapi.TYPE_OBJECT)),
                    404: "Receipt Not Found"},
         operation_summary="Calculate points for a receipt",
