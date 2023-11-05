@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
 
   pgadmin:
     image: dpage/pgadmin4
@@ -20,6 +22,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: "your_password"
     ports:
       - "8080:80"  # Map the pgAdmin web interface to port 8080
+    networks:
+      - mynetwork
 
   web:
     build: .
@@ -36,7 +40,12 @@ services:
         - DBPASSWORD=root
         - DBHOST=postgres_db
         - DBPORT=5432
+    networks:
+      - mynetwork
 
 
 volumes:
   pg_data:
+
+networks:
+  mynetwork:
