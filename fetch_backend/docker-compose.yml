@@ -26,22 +26,23 @@ services:
       - mynetwork
 
   web:
-    build: .
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-    ports:
+      build: .
+      command: >
+        sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      ports:
         - "8000:8000"
-    depends_on:
+      depends_on:
         - postgres_db
-    volumes:
+      volumes:
         - .:/app
-    environment:
+      environment:
         - DBNAME=pgserver
         - DBUSER=pguser
         - DBPASSWORD=root
         - DBHOST=postgres_db
         - DBPORT=5432
-    networks:
-      - mynetwork
+      networks:
+        - mynetwork
 
 
 volumes:
